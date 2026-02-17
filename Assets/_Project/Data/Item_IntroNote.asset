@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Item_IntroNote
   m_EditorClassIdentifier: 
   itemId: intro_note
-  displayName: 
+  displayName: Note
   icon: {fileID: 21300000, guid: f71ab56f2194e084098176e7eb82fec2, type: 3}
   inspectSprite: {fileID: 21300000, guid: 55d70c6b4b99a2948832aec492d7d98f, type: 3}

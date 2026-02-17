@@ -1067,6 +1067,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BootstrapSystems
       objectReference: {fileID: 0}
+    - target: {fileID: 5511761974597317137, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
+      propertyPath: itemDatabase
+      value: 
+      objectReference: {fileID: 11400000, guid: 25d0862a022c12946beaf83894699f8e, type: 2}
     - target: {fileID: 5593801021154677499, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.3192751
