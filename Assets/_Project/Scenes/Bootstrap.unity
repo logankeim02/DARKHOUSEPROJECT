@@ -212,6 +212,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6849092045568187511, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
+      propertyPath: flashTime
+      value: 0.24
+      objectReference: {fileID: 0}
     - target: {fileID: 8037684143109539783, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
       propertyPath: m_Name
       value: InventoryUI

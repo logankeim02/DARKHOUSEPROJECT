@@ -16,8 +16,10 @@ public class InventoryToggleUI : MonoBehaviour
     [SerializeField] private float flashTime = 0.25f;
 
     private Coroutine flashRoutine;
+    private Coroutine subscribeRoutine;
+    private bool subscribed;
 
-    void Awake()
+    private void Awake()
     {
         if (inventoryPanel != null)
             inventoryPanel.SetActive(false);
@@ -29,16 +31,46 @@ public class InventoryToggleUI : MonoBehaviour
             buttonText.color = normalColor;
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        if (InventoryManager.Instance != null)
-            InventoryManager.Instance.OnItemAdded += HandleItemAdded;
+        // In case Unity lifecycle order changes, wait until InventoryManager.Instance exists
+        if (subscribeRoutine != null) StopCoroutine(subscribeRoutine);
+        subscribeRoutine = StartCoroutine(SubscribeWhenReady());
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
-        if (InventoryManager.Instance != null)
+        if (subscribeRoutine != null)
+        {
+            StopCoroutine(subscribeRoutine);
+            subscribeRoutine = null;
+        }
+
+        Unsubscribe();
+    }
+
+    private IEnumerator SubscribeWhenReady()
+    {
+        // Wait until InventoryManager singleton is initialized
+        while (InventoryManager.Instance == null)
+            yield return null;
+
+        if (!subscribed)
+        {
+            InventoryManager.Instance.OnItemAdded += HandleItemAdded;
+            subscribed = true;
+        }
+
+        subscribeRoutine = null;
+    }
+
+    private void Unsubscribe()
+    {
+        if (subscribed && InventoryManager.Instance != null)
+        {
             InventoryManager.Instance.OnItemAdded -= HandleItemAdded;
+        }
+        subscribed = false;
     }
 
     private void ToggleInventory()
