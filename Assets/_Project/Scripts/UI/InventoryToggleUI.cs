@@ -5,6 +5,19 @@ using UnityEngine.UI;
 
 public class InventoryToggleUI : MonoBehaviour
 {
+    public bool IsOpen => inventoryPanel != null && inventoryPanel.activeSelf;
+
+    public void Open()
+{
+    if (inventoryPanel != null) inventoryPanel.SetActive(true);
+}
+
+public void Close()
+{
+    if (inventoryPanel != null) inventoryPanel.SetActive(false);
+}
+
+
     [Header("Wiring")]
     [SerializeField] private GameObject inventoryPanel;   // the whole inventory UI (hidden/shown)
     [SerializeField] private Button toggleButton;
