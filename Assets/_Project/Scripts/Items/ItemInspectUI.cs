@@ -5,27 +5,36 @@ using UnityEngine.UI;
 public class ItemInspectUI : MonoBehaviour
 {
     [Header("Wiring")]
-    [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private Image inspectImage;
-    [SerializeField] private Button closeButton;
-    [SerializeField] private InventoryToggleUI inventoryToggle;
+    [SerializeField] private CanvasGroup group;          // on ItemInspectOverlay (or child)
+    [SerializeField] private Image dimmer;               // full-screen dark image
+    [SerializeField] private Image inspectImage;         // centered image
+    [SerializeField] private Button closeButton;         // X button
+    [SerializeField] private GameObject inventoryPanel;  // your InventoryBar panel
 
-    [Header("Timing")]
-    [SerializeField] private float fadeInTime = 0.12f;
-    [SerializeField] private float fadeOutTime = 0.18f;
+    [Header("Fade")]
+    [SerializeField] private float fadeTime = 0.15f;
 
-    private Coroutine routine;
-    private bool wasInventoryOpen;
+    private Coroutine fadeRoutine;
+    private bool reopenInventoryOnClose;
 
     private void Awake()
     {
-        if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
+        if (group == null) group = GetComponent<CanvasGroup>();
 
         if (closeButton != null)
-            closeButton.onClick.AddListener(Close);
+            closeButton.onClick.AddListener(Hide);
 
-        if (canvasGroup != null)
-            canvasGroup.alpha = 0f;
+        ForceHidden();
+    }
+
+    private void ForceHidden()
+    {
+        if (group != null)
+        {
+            group.alpha = 0f;
+            group.interactable = false;
+            group.blocksRaycasts = false;
+        }
 
         gameObject.SetActive(false);
     }
@@ -34,70 +43,67 @@ public class ItemInspectUI : MonoBehaviour
     {
         if (item == null) return;
 
-        if (item.inspectSprite == null)
-        {
-            Debug.LogWarning($"Item '{item.displayName}' has no inspectSprite assigned.");
-            return;
-        }
+        // close inventory bar while inspecting
+        reopenInventoryOnClose = (inventoryPanel != null && inventoryPanel.activeSelf);
+        if (inventoryPanel != null) inventoryPanel.SetActive(false);
 
-        // Cache inventory open state + close it
-        if (inventoryToggle == null)
-            inventoryToggle = FindFirstObjectByType<InventoryToggleUI>();
-
-        wasInventoryOpen = inventoryToggle != null && inventoryToggle.IsOpen;
-
-        if (inventoryToggle != null)
-            inventoryToggle.Close();
-
-        // Set the big inspect sprite
-        inspectImage.sprite = item.inspectSprite;
-        inspectImage.preserveAspect = true;
+        if (inspectImage != null)
+            inspectImage.sprite = item.inspectSprite != null ? item.inspectSprite : item.icon;
 
         gameObject.SetActive(true);
 
-        if (routine != null) StopCoroutine(routine);
-        routine = StartCoroutine(Fade(0f, 1f, fadeInTime));
+        if (fadeRoutine != null) StopCoroutine(fadeRoutine);
+        fadeRoutine = StartCoroutine(FadeTo(1f));
     }
 
-    public void Close()
+    public void Hide()
     {
-        if (!gameObject.activeSelf) return;
-
-        if (routine != null) StopCoroutine(routine);
-        routine = StartCoroutine(CloseRoutine());
+        if (fadeRoutine != null) StopCoroutine(fadeRoutine);
+        fadeRoutine = StartCoroutine(FadeOutThenClose());
     }
 
-    private IEnumerator CloseRoutine()
+    private IEnumerator FadeTo(float target)
     {
-        yield return Fade(1f, 0f, fadeOutTime);
-        gameObject.SetActive(false);
-        routine = null;
+        if (group == null) yield break;
 
-        // Re-open inventory if it was open when inspection started
-        if (wasInventoryOpen && inventoryToggle != null)
-            inventoryToggle.Open();
-    }
+        group.interactable = true;
+        group.blocksRaycasts = true;
 
-    private IEnumerator Fade(float from, float to, float duration)
-    {
-        if (canvasGroup == null) yield break;
-
-        if (duration <= 0f)
-        {
-            canvasGroup.alpha = to;
-            yield break;
-        }
-
+        float start = group.alpha;
         float t = 0f;
-        canvasGroup.alpha = from;
 
-        while (t < duration)
+        while (t < fadeTime)
         {
             t += Time.unscaledDeltaTime;
-            canvasGroup.alpha = Mathf.Lerp(from, to, t / duration);
+            group.alpha = Mathf.Lerp(start, target, t / fadeTime);
             yield return null;
         }
 
-        canvasGroup.alpha = to;
+        group.alpha = target;
+    }
+
+    private IEnumerator FadeOutThenClose()
+    {
+        if (group == null) yield break;
+
+        float start = group.alpha;
+        float t = 0f;
+
+        while (t < fadeTime)
+        {
+            t += Time.unscaledDeltaTime;
+            group.alpha = Mathf.Lerp(start, 0f, t / fadeTime);
+            yield return null;
+        }
+
+        group.alpha = 0f;
+        group.interactable = false;
+        group.blocksRaycasts = false;
+
+        gameObject.SetActive(false);
+
+        // reopen inventory if it was open when we started inspecting
+        if (reopenInventoryOnClose && inventoryPanel != null)
+            inventoryPanel.SetActive(true);
     }
 }

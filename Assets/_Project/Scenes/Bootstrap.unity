@@ -395,6 +395,83 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5593801021154677499, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
   m_PrefabInstance: {fileID: 8185529652041741742}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &936102060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 936102061}
+  - component: {fileID: 936102062}
+  - component: {fileID: 936102063}
+  m_Layer: 5
+  m_Name: SlotsRow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &936102061
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936102060}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2002690745}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &936102062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936102060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 8
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &936102063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936102060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
+  m_HorizontalFit: 0
+  m_VerticalFit: 0
 --- !u!1 &1151458186
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,14 +557,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1571947058}
   - component: {fileID: 1571947060}
-  - component: {fileID: 1571947059}
+  - component: {fileID: 1571947061}
   m_Layer: 5
   m_Name: ItemInspectOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1571947058
 RectTransform:
   m_ObjectHideFlags: 0
@@ -510,24 +587,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1571947059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1571947057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6e32753da7cc6a4295973f3efce4fb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemInspectUI
-  canvasGroup: {fileID: 1571947060}
-  inspectImage: {fileID: 533049958}
-  closeButton: {fileID: 459479902}
-  inventoryToggle: {fileID: 1598265121}
-  fadeInTime: 0.12
-  fadeOutTime: 0.18
 --- !u!225 &1571947060
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -540,6 +599,24 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1571947061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571947057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e32753da7cc6a4295973f3efce4fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemInspectUI
+  group: {fileID: 1571947060}
+  dimmer: {fileID: 1151458188}
+  inspectImage: {fileID: 533049958}
+  closeButton: {fileID: 459479902}
+  inventoryPanel: {fileID: 1971023530}
+  fadeTime: 0.15
 --- !u!1001 &1598265119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -652,6 +729,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryUI
       objectReference: {fileID: 0}
+    - target: {fileID: 8142292273002750405, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
+      propertyPath: noteItem
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142292273002750405, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
+      propertyPath: slotCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142292273002750405, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
+      propertyPath: slotPrefab
+      value: 
+      objectReference: {fileID: 7049608682670743747, guid: d7b6106008db6cc4c8e8b7101bca4e9e, type: 3}
+    - target: {fileID: 8142292273002750405, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
+      propertyPath: slotsParent
+      value: 
+      objectReference: {fileID: 936102061}
+    - target: {fileID: 8142292273002750405, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
+      propertyPath: itemCatalog.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142292273002750405, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
+      propertyPath: 'itemCatalog.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1afb714fc296e4a47af723d3419ca572, type: 2}
     - target: {fileID: 8446914246563313515, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -673,6 +774,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3012467326461196672, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1571947058}
+    - targetCorrespondingSourceObject: {fileID: 6846249058535478413, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 936102061}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
 --- !u!224 &1598265120 stripped
@@ -680,17 +784,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3012467326461196672, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
   m_PrefabInstance: {fileID: 1598265119}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1598265121 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6849092045568187511, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
-  m_PrefabInstance: {fileID: 1598265119}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fef34d3e4acf044bab445eab6a349fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1681270537
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,6 +1045,16 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
+--- !u!1 &1971023530 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2319817103639613613, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
+  m_PrefabInstance: {fileID: 1598265119}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2002690745 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6846249058535478413, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
+  m_PrefabInstance: {fileID: 1598265119}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8185529652041741742
 PrefabInstance:
   m_ObjectHideFlags: 0
