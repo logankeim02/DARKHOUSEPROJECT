@@ -88,6 +88,8 @@ public void Close()
 
     private void ToggleInventory()
     {
+        UISfxPlayer.PlayInventoryToggle();
+        
         if (inventoryPanel == null) return;
         inventoryPanel.SetActive(!inventoryPanel.activeSelf);
     }

@@ -1067,6 +1067,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BootstrapSystems
       objectReference: {fileID: 0}
+    - target: {fileID: 4732398053202359924, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
+      propertyPath: inventoryToggleClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1123ad193b9400448bd1bc9654303dd4, type: 3}
     - target: {fileID: 5511761974597317137, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
       propertyPath: itemDatabase
       value: 

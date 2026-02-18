@@ -1,14 +1,27 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider))]
 public class PickupHotspot : MonoBehaviour, IClickable
 {
     [SerializeField] private ItemData item;
 
-    public void Activate()
+    [Header("Persistence")]
+    [Tooltip("Must be UNIQUE across the whole game. Example: room01_intro_note")]
+    [SerializeField] private string pickupId;
+
+    private void Start()
     {
-        Pickup();
+        if (InventoryManager.Instance == null) return;
+
+        string id = GetResolvedPickupId();
+        if (InventoryManager.Instance.IsPickupCollected(id))
+        {
+            Destroy(gameObject);
+        }
     }
+
+    public void Activate() => Pickup();
 
     private void Pickup()
     {
@@ -24,12 +37,23 @@ public class PickupHotspot : MonoBehaviour, IClickable
             return;
         }
 
+        string id = GetResolvedPickupId();
+
+        // Mark world-state FIRST so it won't come back on scene reload
+        InventoryManager.Instance.MarkPickupCollected(id);
+
+        // Add item (Add() already ignores duplicates)
         InventoryManager.Instance.Add(item);
-        Debug.Log($"Picked up: {item.name}", this);
 
-        Destroy(gameObject); // removes the pickup object so it can't be clicked again
+        Destroy(gameObject);
+    }
 
-        Debug.Log("Inventory now has: " + InventoryManager.Instance.ItemIds.Count + " items");
+    private string GetResolvedPickupId()
+    {
+        if (!string.IsNullOrWhiteSpace(pickupId))
+            return pickupId;
 
+        // Fallback (works, but best practice is to set pickupId explicitly)
+        return $"{SceneManager.GetActiveScene().name}:{gameObject.name}";
     }
 }

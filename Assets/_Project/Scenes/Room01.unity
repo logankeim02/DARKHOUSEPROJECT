@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 1afb714fc296e4a47af723d3419ca572, type: 2}
+  pickupId: room01_intro_note
 --- !u!65 &10729612
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -507,6 +508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 1afb714fc296e4a47af723d3419ca572, type: 2}
+  pickupId: 
 --- !u!65 &2031665132
 BoxCollider:
   m_ObjectHideFlags: 0

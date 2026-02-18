@@ -14,6 +14,9 @@ public class InventoryManager : MonoBehaviour
     private readonly List<string> itemIds = new();
     public IReadOnlyList<string> ItemIds => itemIds;
 
+    // NEW: persistent world-state for pickups
+    private readonly HashSet<string> collectedPickupIds = new();
+
     void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -52,5 +55,18 @@ public class InventoryManager : MonoBehaviour
             OnItemAdded?.Invoke(item);
         else
             OnItemAdded?.Invoke(null);
+    }
+
+    // NEW: pickup persistence helpers
+    public bool IsPickupCollected(string pickupId)
+    {
+        if (string.IsNullOrWhiteSpace(pickupId)) return false;
+        return collectedPickupIds.Contains(pickupId);
+    }
+
+    public void MarkPickupCollected(string pickupId)
+    {
+        if (string.IsNullOrWhiteSpace(pickupId)) return;
+        collectedPickupIds.Add(pickupId);
     }
 }

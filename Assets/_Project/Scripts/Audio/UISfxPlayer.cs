@@ -9,6 +9,9 @@ public class UISfxPlayer : MonoBehaviour
     [SerializeField] private AudioClip clickClip;
     [SerializeField] private AudioClip startGameClip;
 
+    [SerializeField] private AudioClip inventoryToggleClip;
+
+
     private AudioSource src;
 
     private void Awake()
@@ -24,6 +27,13 @@ public class UISfxPlayer : MonoBehaviour
         src = GetComponent<AudioSource>();
         src.spatialBlend = 0f; // Force 2D
     }
+
+    public static void PlayInventoryToggle()
+{
+    if (Instance == null || Instance.inventoryToggleClip == null) return;
+    Instance.src.PlayOneShot(Instance.inventoryToggleClip, 0.9f);
+}
+
 
     public static void PlayHover()
     {
