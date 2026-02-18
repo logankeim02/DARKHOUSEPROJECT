@@ -29,4 +29,15 @@ public class AudioSettings : MonoBehaviour
     {
         AudioListener.volume = MasterVolume; // global volume
     }
+
+    [ContextMenu("RESET MASTER VOLUME TO 1")]
+private void ResetMasterVolumeToOne()
+{
+    PlayerPrefs.DeleteKey("MasterVolume");
+    PlayerPrefs.Save();
+    MasterVolume = 1f;
+    Apply();
+    Debug.Log("MasterVolume reset to 1");
+}
+
 }

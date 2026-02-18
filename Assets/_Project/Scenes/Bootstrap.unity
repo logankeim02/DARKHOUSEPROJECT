@@ -1112,6 +1112,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6041739311470221843, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041739311470221843, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}

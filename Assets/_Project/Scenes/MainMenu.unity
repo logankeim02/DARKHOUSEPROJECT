@@ -292,6 +292,8 @@ MonoBehaviour:
   transitionTime: 0.12
   normalColor: {r: 0.57137775, g: 0.5468669, b: 0.5468669, a: 1}
   hoverColor: {r: 0.73371315, g: 0, b: 0, a: 1}
+  playHoverSfx: 1
+  playClickSfx: 1
 --- !u!1 &448536910
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,8 +353,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Load
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7f3101ddfd8604b489d292ffb64481a9, type: 2}
-  m_sharedMaterial: {fileID: 6675502595110587853, guid: 7f3101ddfd8604b489d292ffb64481a9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5ebb50564b42c3745a7572697f2f3a36, type: 2}
+  m_sharedMaterial: {fileID: 8014881122870139960, guid: 5ebb50564b42c3745a7572697f2f3a36, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -488,6 +490,8 @@ MonoBehaviour:
   transitionTime: 0.12
   normalColor: {r: 0.57137775, g: 0.5468669, b: 0.5468669, a: 1}
   hoverColor: {r: 0.73371315, g: 0, b: 0, a: 1}
+  playHoverSfx: 1
+  playClickSfx: 1
 --- !u!114 &558125665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -925,6 +929,8 @@ MonoBehaviour:
   transitionTime: 0.12
   normalColor: {r: 0.57137775, g: 0.5468669, b: 0.5468669, a: 1}
   hoverColor: {r: 0.73371315, g: 0, b: 0, a: 1}
+  playHoverSfx: 1
+  playClickSfx: 1
 --- !u!1 &945386419
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,8 +1185,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7f3101ddfd8604b489d292ffb64481a9, type: 2}
-  m_sharedMaterial: {fileID: 6675502595110587853, guid: 7f3101ddfd8604b489d292ffb64481a9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5ebb50564b42c3745a7572697f2f3a36, type: 2}
+  m_sharedMaterial: {fileID: 8014881122870139960, guid: 5ebb50564b42c3745a7572697f2f3a36, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1407,8 +1413,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7f3101ddfd8604b489d292ffb64481a9, type: 2}
-  m_sharedMaterial: {fileID: 6675502595110587853, guid: 7f3101ddfd8604b489d292ffb64481a9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5ebb50564b42c3745a7572697f2f3a36, type: 2}
+  m_sharedMaterial: {fileID: 8014881122870139960, guid: 5ebb50564b42c3745a7572697f2f3a36, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1544,8 +1550,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Quit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7f3101ddfd8604b489d292ffb64481a9, type: 2}
-  m_sharedMaterial: {fileID: 6675502595110587853, guid: 7f3101ddfd8604b489d292ffb64481a9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5ebb50564b42c3745a7572697f2f3a36, type: 2}
+  m_sharedMaterial: {fileID: 8014881122870139960, guid: 5ebb50564b42c3745a7572697f2f3a36, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1871,6 +1877,8 @@ MonoBehaviour:
   transitionTime: 0.12
   normalColor: {r: 0.57137775, g: 0.5468669, b: 0.5468669, a: 1}
   hoverColor: {r: 0.73371315, g: 0, b: 0, a: 1}
+  playHoverSfx: 1
+  playClickSfx: 1
 --- !u!1 &1492610130
 GameObject:
   m_ObjectHideFlags: 0

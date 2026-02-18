@@ -7,6 +7,7 @@ public class MainMenuController : MonoBehaviour
 
     public void StartGame()
     {
+         UISfxPlayer.QueueStartGameSfx();
         SceneManager.LoadScene(newGameSceneName);
     }
 
