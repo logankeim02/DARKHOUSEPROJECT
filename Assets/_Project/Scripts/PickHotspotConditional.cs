@@ -20,7 +20,7 @@ public class PickupHotspotConditional : MonoBehaviour, IClickable
     [Tooltip("Drag your persistent PickupToastUI here (from Bootstrap UI). If left empty, we will try FindFirstObjectByType at runtime.")]
     [SerializeField] private PickupToastUI toastUI;
 
-    [Tooltip("If true, uses PickupToastUI's normal pickup prefix style. If false, shows lockedMessage exactly as written.")]
+    [Tooltip("If true, prefixes the message (does NOT use PickupToastUI's internal prefix field).")]
     [SerializeField] private bool usePickupPrefixStyle = false;
 
     [Header("Persistence")]
@@ -31,7 +31,6 @@ public class PickupHotspotConditional : MonoBehaviour, IClickable
     {
         if (InventoryManager.Instance == null) return;
 
-        // Try auto-find toast if not wired (works fine with persistent UI)
         if (toastUI == null)
             toastUI = FindFirstObjectByType<PickupToastUI>();
 
@@ -56,7 +55,7 @@ public class PickupHotspotConditional : MonoBehaviour, IClickable
             return;
         }
 
-        // Requirement check (only enforced if an id is set)
+        // Requirement check (only enforced if we have an id)
         if (!string.IsNullOrWhiteSpace(requiredItemId) &&
             !InventoryManager.Instance.Has(requiredItemId))
         {
@@ -73,16 +72,15 @@ public class PickupHotspotConditional : MonoBehaviour, IClickable
 
     private void ShowBlockedToast()
     {
+        string msg = string.IsNullOrWhiteSpace(lockedMessage) ? "You are unable to pick this item up." : lockedMessage;
+
         if (toastUI != null)
         {
-            if (usePickupPrefixStyle)
-                toastUI.Show("Locked: " + lockedMessage); // lightweight “styled” option
-            else
-                toastUI.Show(lockedMessage);
+            toastUI.Show(usePickupPrefixStyle ? ("Locked: " + msg) : msg);
         }
         else
         {
-            Debug.Log(lockedMessage, this);
+            Debug.Log(msg, this);
         }
     }
 
@@ -97,8 +95,9 @@ public class PickupHotspotConditional : MonoBehaviour, IClickable
 #if UNITY_EDITOR
     private void OnValidate()
     {
+        // IMPORTANT: use ItemData.itemId (your InventoryManager.Has wants a string id)
         if (requiredItem != null)
-            requiredItemId = requiredItem.name;
+            requiredItemId = requiredItem.itemId;
     }
 #endif
 }

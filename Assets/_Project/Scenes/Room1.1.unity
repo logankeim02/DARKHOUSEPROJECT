@@ -716,9 +716,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupHotspotConditional
   item: {fileID: 11400000, guid: 1f325972a6c21234d8c71a8494cd0bc0, type: 2}
   requiredItem: {fileID: 11400000, guid: 6770325eb4a73194a985e8af9abbaf7a, type: 2}
-  requiredItemId: Item_FishingPole
-  lockedMessage: You are unable to get the key ... there may be something up ahead
-    that could be used
+  requiredItemId: fishingPole
+  lockedMessage: You are unable to pickup the key from shore ...
+  toastUI: {fileID: 0}
+  usePickupPrefixStyle: 0
   pickupId: 
 --- !u!1 &2118699820
 GameObject:
