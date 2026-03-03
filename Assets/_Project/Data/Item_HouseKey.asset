@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96984d77306d41f47b2ba023be0dcd33, type: 3}
+  m_Name: Item_HouseKey
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemId: house_key
+  displayName: House Key
+  icon: {fileID: 21300000, guid: d29cb2b3175bb52448102c59fc4b2cb2, type: 3}
+  inspectSprite: {fileID: 21300000, guid: f9b6db43756fef4499c2084c35371aaf, type: 3}
+  inspectOpenSfx: {fileID: 8300000, guid: 99a0cdf255dee524cbb18739a9997a36, type: 3}
+  inspectCloseSfx: {fileID: 8300000, guid: 18a70b0ad5333d146a56fd281984cada, type: 3}
