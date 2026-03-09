@@ -5,16 +5,26 @@ public class AudioSettings : MonoBehaviour
     public static AudioSettings Instance { get; private set; }
 
     private const string MasterVolKey = "MasterVolume";
+    private const string AmbientVolKey = "AmbientVolume";
+
     public float MasterVolume { get; private set; } = 1f;
+    public float AmbientVolume { get; private set; } = 1f;
 
     void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
         MasterVolume = PlayerPrefs.GetFloat(MasterVolKey, 1f);
-        Apply();
+        AmbientVolume = PlayerPrefs.GetFloat(AmbientVolKey, 1f);
+
+        ApplyMaster();
     }
 
     public void SetMasterVolume(float value)
@@ -22,22 +32,25 @@ public class AudioSettings : MonoBehaviour
         MasterVolume = Mathf.Clamp01(value);
         PlayerPrefs.SetFloat(MasterVolKey, MasterVolume);
         PlayerPrefs.Save();
-        Apply();
+        ApplyMaster();
     }
 
-    private void Apply()
+    public void SetAmbientVolume(float value)
     {
-        AudioListener.volume = MasterVolume; // global volume
+        AmbientVolume = Mathf.Clamp01(value);
+        PlayerPrefs.SetFloat(AmbientVolKey, AmbientVolume);
+        PlayerPrefs.Save();
+        ApplyAmbientToScene();
     }
 
-    [ContextMenu("RESET MASTER VOLUME TO 1")]
-private void ResetMasterVolumeToOne()
-{
-    PlayerPrefs.DeleteKey("MasterVolume");
-    PlayerPrefs.Save();
-    MasterVolume = 1f;
-    Apply();
-    Debug.Log("MasterVolume reset to 1");
-}
+    private void ApplyMaster()
+    {
+        AudioListener.volume = MasterVolume;
+    }
 
+private void ApplyAmbientToScene()
+{
+    if (AmbientAudioManager.Instance != null)
+        AmbientAudioManager.Instance.ApplyVolume();
+}
 }
