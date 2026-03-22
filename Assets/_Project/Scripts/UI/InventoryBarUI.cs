@@ -9,13 +9,18 @@ public class InventoryBarUI : MonoBehaviour
     [SerializeField] private Transform slotsParent;
     [SerializeField] private int slotCount = 6;
 
+    [Header("Item Catalog (ALL possible items)")]
+    [SerializeField] private List<ItemData> itemCatalog = new();
+
     private readonly List<InventorySlotUI> slots = new();
+    private readonly Dictionary<string, ItemData> idToItem = new();
 
     private Coroutine subscribeRoutine;
     private bool slotsBuilt;
 
     private void Awake()
     {
+        BuildCatalogLookup();
         BuildSlots();
         Refresh();
     }
@@ -46,7 +51,22 @@ public class InventoryBarUI : MonoBehaviour
         subscribeRoutine = null;
     }
 
-    private void HandleItemAdded(ItemData item) => Refresh();
+    private void HandleItemAdded(ItemData item)
+    {
+        Refresh();
+    }
+
+    private void BuildCatalogLookup()
+    {
+        idToItem.Clear();
+
+        foreach (var item in itemCatalog)
+        {
+            if (item == null) continue;
+            if (string.IsNullOrWhiteSpace(item.itemId)) continue;
+            idToItem[item.itemId] = item;
+        }
+    }
 
     private void BuildSlots()
     {
@@ -65,7 +85,7 @@ public class InventoryBarUI : MonoBehaviour
         for (int i = 0; i < slotCount; i++)
         {
             var slot = Instantiate(slotPrefab, slotsParent);
-            slot.Init(OnSlotClicked);
+            slot.Init(OnSlotRightClicked);
             slot.Clear();
             slots.Add(slot);
         }
@@ -91,17 +111,19 @@ public class InventoryBarUI : MonoBehaviour
         {
             var id = ids[i];
 
-            if (InventoryManager.Instance.TryResolve(id, out var item) && item != null)
-                slots[i].SetItem(item);
-            else
-                Debug.LogWarning($"InventoryBarUI: itemId '{id}' not found in ItemDatabase on InventoryManager.");
+            if (!idToItem.TryGetValue(id, out var item))
+            {
+                Debug.LogWarning($"InventoryBarUI: itemId '{id}' not found in itemCatalog.");
+                continue;
+            }
+
+            slots[i].SetItem(item);
         }
     }
 
-    private void OnSlotClicked(ItemData item)
+    private void OnSlotRightClicked(ItemData item, Vector2 screenPosition)
     {
-        var inspectUI = Object.FindFirstObjectByType<ItemInspectUI>(FindObjectsInactive.Include);
-        if (inspectUI != null) inspectUI.Show(item);
-        else Debug.LogWarning("ItemInspectUI not found (is it on ItemInspectOverlay in Bootstrap?)");
+        if (InventoryContextMenuUI.Instance != null)
+            InventoryContextMenuUI.Instance.Show(item, screenPosition);
     }
 }

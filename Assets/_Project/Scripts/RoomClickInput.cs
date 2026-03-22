@@ -15,10 +15,8 @@ public class RoomClickInput : MonoBehaviour
 
     private void Update()
     {
-        // Run hover every frame so the indicator appears on mouseover
         UpdateHover();
 
-        // Click handling
         if (!Input.GetMouseButtonDown(0))
             return;
 
@@ -26,17 +24,37 @@ public class RoomClickInput : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, hotspotMask))
         {
-            Debug.Log("Clicked hotspot: " + hit.collider.name);
+            var useManager = InventoryInteractionManager.Instance;
+            var selectedItem = useManager != null ? useManager.SelectedUseItem : null;
+
+            if (selectedItem != null)
+            {
+                var useTarget = hit.collider.GetComponentInParent<IItemUseTarget>();
+                if (useTarget != null)
+                {
+                    bool success = useTarget.TryUseItem(selectedItem);
+
+                    if (!success && useManager != null)
+                    {
+                        useManager.ShowToast("That won't work here");
+                        useManager.ClearSelectedItem();
+                    }
+
+                    return;
+                }
+
+                if (useManager != null)
+                {
+                    useManager.ShowToast("That won't work here");
+                    useManager.ClearSelectedItem();
+                }
+
+                return;
+            }
 
             var clickable = hit.collider.GetComponentInParent<IClickable>();
             if (clickable != null)
-            {
                 clickable.Activate();
-            }
-            else
-            {
-                Debug.LogWarning("No IClickable found on hit object.");
-            }
         }
     }
 
@@ -49,21 +67,16 @@ public class RoomClickInput : MonoBehaviour
         HotspotHoverIndicator newHover = null;
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, hotspotMask))
-        {
             newHover = hit.collider.GetComponentInParent<HotspotHoverIndicator>();
-        }
 
-        // No change
         if (newHover == currentHover)
             return;
 
-        // Exit old
         if (currentHover != null)
             currentHover.SetHovered(false);
 
         currentHover = newHover;
 
-        // Enter new
         if (currentHover != null)
             currentHover.SetHovered(true);
     }

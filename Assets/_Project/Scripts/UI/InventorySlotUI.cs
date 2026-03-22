@@ -1,39 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class InventorySlotUI : MonoBehaviour
+public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 {
     [Header("Wiring")]
-    [SerializeField] private Image icon;   // MUST be the child Image named "Icon"
+    [SerializeField] private Image icon;
     [SerializeField] private Button button;
 
     private ItemData currentItem;
-    private System.Action<ItemData> onClicked;
+    private System.Action<ItemData, Vector2> onRightClicked;
 
     private void Awake()
     {
         if (button == null) button = GetComponent<Button>();
 
-        // Find Icon image by name so we don't accidentally grab the Button background Image.
         if (icon == null)
         {
             var t = transform.Find("Icon");
             if (t != null) icon = t.GetComponent<Image>();
         }
 
-        if (button != null)
-            button.onClick.AddListener(() =>
-            {
-                if (currentItem != null)
-                    onClicked?.Invoke(currentItem);
-            });
-
         Clear();
     }
 
-    public void Init(System.Action<ItemData> clickCallback)
+    public void Init(System.Action<ItemData, Vector2> rightClickCallback)
     {
-        onClicked = clickCallback;
+        onRightClicked = rightClickCallback;
     }
 
     public void SetItem(ItemData item)
@@ -45,7 +38,7 @@ public class InventorySlotUI : MonoBehaviour
         if (icon != null)
         {
             icon.sprite = hasItem ? item.icon : null;
-            icon.enabled = hasItem; // better than SetActive (won’t hide the whole slot)
+            icon.enabled = hasItem;
         }
 
         if (button != null)
@@ -55,5 +48,14 @@ public class InventorySlotUI : MonoBehaviour
     public void Clear()
     {
         SetItem(null);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (currentItem == null)
+            return;
+
+        if (eventData.button == PointerEventData.InputButton.Right)
+            onRightClicked?.Invoke(currentItem, eventData.position);
     }
 }

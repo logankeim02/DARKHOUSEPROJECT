@@ -7,66 +7,81 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager Instance { get; private set; }
 
     public event Action<ItemData> OnItemAdded;
-
-    [Header("Item Database (ALL possible items)")]
-    [SerializeField] private ItemDatabase itemDatabase;
+    public event Action<ItemData> OnItemRemoved;
 
     private readonly List<string> itemIds = new();
-    public IReadOnlyList<string> ItemIds => itemIds;
-
-    // NEW: persistent world-state for pickups
+    private readonly Dictionary<string, ItemData> idToItem = new();
     private readonly HashSet<string> collectedPickupIds = new();
 
-    void Awake()
+    public IReadOnlyList<string> ItemIds => itemIds;
+
+    private void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
-    public ItemDatabase Database => itemDatabase;
-
-    public bool TryResolve(string id, out ItemData item)
+    public bool Has(string id)
     {
-        item = null;
-        if (itemDatabase == null) return false;
-        return itemDatabase.TryGet(id, out item);
+        return !string.IsNullOrWhiteSpace(id) && itemIds.Contains(id);
     }
-
-    public bool Has(string id) => itemIds.Contains(id);
 
     public void Add(ItemData item)
     {
-        if (item == null || string.IsNullOrWhiteSpace(item.itemId)) return;
-        if (itemIds.Contains(item.itemId)) return;
+        if (item == null || string.IsNullOrWhiteSpace(item.itemId))
+            return;
+
+        if (itemIds.Contains(item.itemId))
+            return;
 
         itemIds.Add(item.itemId);
+        idToItem[item.itemId] = item;
         OnItemAdded?.Invoke(item);
     }
 
-    public void AddById(string itemId)
+    public bool Remove(string itemId)
     {
-        if (string.IsNullOrWhiteSpace(itemId)) return;
-        if (itemIds.Contains(itemId)) return;
+        if (string.IsNullOrWhiteSpace(itemId))
+            return false;
 
-        itemIds.Add(itemId);
+        if (!itemIds.Remove(itemId))
+            return false;
 
-        if (TryResolve(itemId, out var item))
-            OnItemAdded?.Invoke(item);
-        else
-            OnItemAdded?.Invoke(null);
+        if (idToItem.TryGetValue(itemId, out var item))
+            OnItemRemoved?.Invoke(item);
+
+        return true;
     }
 
-    // NEW: pickup persistence helpers
+    public bool TryResolve(string itemId, out ItemData item)
+    {
+        item = null;
+
+        if (string.IsNullOrWhiteSpace(itemId))
+            return false;
+
+        return idToItem.TryGetValue(itemId, out item);
+    }
+
     public bool IsPickupCollected(string pickupId)
     {
-        if (string.IsNullOrWhiteSpace(pickupId)) return false;
+        if (string.IsNullOrWhiteSpace(pickupId))
+            return false;
+
         return collectedPickupIds.Contains(pickupId);
     }
 
     public void MarkPickupCollected(string pickupId)
     {
-        if (string.IsNullOrWhiteSpace(pickupId)) return;
+        if (string.IsNullOrWhiteSpace(pickupId))
+            return;
+
         collectedPickupIds.Add(pickupId);
     }
 }
