@@ -36,7 +36,10 @@ public class InventoryBarUI : MonoBehaviour
     private void OnDestroy()
     {
         if (InventoryManager.Instance != null)
-            InventoryManager.Instance.OnItemAdded -= HandleItemAdded;
+        {
+            InventoryManager.Instance.OnItemAdded     -= HandleItemAdded;
+            InventoryManager.Instance.OnInventoryLoaded -= Refresh;
+        }
     }
 
     private IEnumerator SubscribeWhenReady()
@@ -44,8 +47,10 @@ public class InventoryBarUI : MonoBehaviour
         while (InventoryManager.Instance == null)
             yield return null;
 
-        InventoryManager.Instance.OnItemAdded -= HandleItemAdded;
-        InventoryManager.Instance.OnItemAdded += HandleItemAdded;
+        InventoryManager.Instance.OnItemAdded       -= HandleItemAdded;
+        InventoryManager.Instance.OnItemAdded       += HandleItemAdded;
+        InventoryManager.Instance.OnInventoryLoaded -= Refresh;
+        InventoryManager.Instance.OnInventoryLoaded += Refresh;
 
         Refresh();
         subscribeRoutine = null;

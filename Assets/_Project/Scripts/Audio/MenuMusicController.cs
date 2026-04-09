@@ -41,8 +41,6 @@ public class MenuMusicController : MonoBehaviour
         {
             if (menuMusic == null) return;
             if (src.clip != menuMusic) src.clip = menuMusic;
-            Debug.Log($"MenuMusicController: Playing '{menuMusic.name}' on scene '{sceneName}'. vol={AudioListener.volume}");
-
             if (!src.isPlaying) src.Play();
         }
         else

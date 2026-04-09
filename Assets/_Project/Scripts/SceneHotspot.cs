@@ -21,8 +21,6 @@ public class SceneHotspot : MonoBehaviour, IClickable
 
     public void Activate()
     {
-        Debug.Log($"Activating SceneHotspot on '{gameObject.name}' → Loading Scene: '{sceneToLoad}'", this);
-
         if (string.IsNullOrEmpty(sceneToLoad))
         {
             Debug.LogError("SceneHotspot has no sceneToLoad assigned!", this);

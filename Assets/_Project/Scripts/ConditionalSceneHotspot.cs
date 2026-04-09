@@ -9,7 +9,11 @@ public class ConditionalSceneHotspot : MonoBehaviour, IClickable
 
     public void Activate()
     {
-        string targetScene = PlayerPrefs.GetInt(unlockKey, 0) == 1 ? unlockedScene : lockedScene;
+        int flagValue = SaveManager.Instance != null
+            ? SaveManager.Instance.GetFlag(unlockKey)
+            : PlayerPrefs.GetInt(unlockKey, 0); // fallback if SaveManager missing
+
+        string targetScene = flagValue == 1 ? unlockedScene : lockedScene;
 
         if (string.IsNullOrWhiteSpace(targetScene))
         {

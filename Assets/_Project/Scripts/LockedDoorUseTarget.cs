@@ -20,8 +20,10 @@ public class LockedDoorUseTarget : MonoBehaviour, IItemUseTarget
         if (item.itemId != requiredItemId)
             return false;
 
-        PlayerPrefs.SetInt(unlockKey, 1);
-        PlayerPrefs.Save();
+        if (SaveManager.Instance != null)
+            SaveManager.Instance.SetFlag(unlockKey, 1);
+        else
+            PlayerPrefs.SetInt(unlockKey, 1); // fallback if SaveManager missing
 
         if (InventoryManager.Instance != null)
             InventoryManager.Instance.Remove(item.itemId);
@@ -40,6 +42,8 @@ public class LockedDoorUseTarget : MonoBehaviour, IItemUseTarget
 
     public static bool IsUnlocked(string unlockKey)
     {
-        return PlayerPrefs.GetInt(unlockKey, 0) == 1;
+        if (SaveManager.Instance != null)
+            return SaveManager.Instance.GetFlag(unlockKey) == 1;
+        return PlayerPrefs.GetInt(unlockKey, 0) == 1; // fallback
     }
 }

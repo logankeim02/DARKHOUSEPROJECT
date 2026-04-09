@@ -7,6 +7,9 @@ public class RoomClickInput : MonoBehaviour
 
     private HotspotHoverIndicator currentHover;
 
+    // Prevents multiple RoomClickInput instances from firing the same click
+    private static int lastClickFrame = -1;
+
     private void Awake()
     {
         if (cam == null)
@@ -19,6 +22,10 @@ public class RoomClickInput : MonoBehaviour
 
         if (!Input.GetMouseButtonDown(0))
             return;
+
+        if (Time.frameCount == lastClickFrame)
+            return;
+        lastClickFrame = Time.frameCount;
 
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 

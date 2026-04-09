@@ -91,13 +91,18 @@ public class DevPanelUI : MonoBehaviour
 
     public void ResetPlayerPrefsData()
     {
+        // Delete the SQLite save and clear in-memory game state
+        if (SaveManager.Instance != null)
+            SaveManager.Instance.DeleteSave();
+
+        // Also wipe PlayerPrefs (audio settings etc.)
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
 
         if (InventoryInteractionManager.Instance != null)
             InventoryInteractionManager.Instance.ClearSelectedItem();
 
-        ShowToast("Dev: Reset PlayerPrefs");
+        ShowToast("Dev: Reset all save data");
     }
 
     private void ShowToast(string message)
