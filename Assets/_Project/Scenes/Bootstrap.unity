@@ -4182,6 +4182,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
   itemDatabase: {fileID: 11400000, guid: 25d0862a022c12946beaf83894699f8e, type: 2}
+--- !u!114 &2112610147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112610130}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cedfb6ba9f4a034b815797315fff9c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RainEffect
+  rainScenes: []
+  emissionRate: 450
+  areaWidth: 100
+  areaDepth: 100
+  windX: -1.2
+  enableSplash: 1
+  groundOffsetY: -4.16
+  enableMist: 0
+  mistOffsetY: -5
+  rainSound: {fileID: 0}
+  rainVolume: 0.35
+  customParticleMaterial: {fileID: 0}
 --- !u!1001 &8185529652041741742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4272,6 +4296,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 40202697679309540, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2112610145}
+    - targetCorrespondingSourceObject: {fileID: 40202697679309540, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112610147}
   m_SourcePrefab: {fileID: 100100000, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

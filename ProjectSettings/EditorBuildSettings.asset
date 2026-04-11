@@ -50,6 +50,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/RoomDeadGuy.unity
     guid: 3ea4b0f23cf5be342ad6aad62f5798e6
+  - enabled: 1
+    path: Assets/_Project/Scenes/livingroom.unity
+    guid: bc5882a4da61ff94ba2c52a94a3f617d
+  - enabled: 1
+    path: Assets/_Project/Scenes/hallway.unity
+    guid: a357fa2622b02eb4c8e81580579279f2
+  - enabled: 1
+    path: Assets/_Project/Scenes/kitchen.unity
+    guid: 5e3ac40526dfe0845b4f87fbbd6e1d9f
+  - enabled: 1
+    path: Assets/_Project/Scenes/bedroom.unity
+    guid: 3457f7033e099dd4982ffd9a94f6db0f
+  - enabled: 1
+    path: Assets/_Project/Scenes/bathroom.unity
+    guid: ab39242ccd542f84c8ade059ec03dd29
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
