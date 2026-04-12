@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "Bash(pandoc \"B:\\\\Downloads \\(B;\\)\\\\Sprint 4.docx\" -o \"C:\\\\Users\\\\Logan\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\b6af173a-d0cb-45d3-8a1f-e5820a3004cf\\\\278de643-d66e-493b-a2c1-d129d9094daa\\\\skills\\\\docx\\\\sprint4.md\" --track-changes=all)",
+      "Bash(python \"C:\\\\Users\\\\Logan\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\b6af173a-d0cb-45d3-8a1f-e5820a3004cf\\\\278de643-d66e-493b-a2c1-d129d9094daa\\\\skills\\\\docx\\\\scripts\\\\office\\\\unpack.py\" \"B:\\\\Downloads \\(B;\\)\\\\Sprint 4.docx\" \"C:\\\\Users\\\\Logan\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\b6af173a-d0cb-45d3-8a1f-e5820a3004cf\\\\278de643-d66e-493b-a2c1-d129d9094daa\\\\skills\\\\docx\\\\unpacked_sprint4\")",
+      "Bash(pip install:*)",
+      "Bash(python -c ':*)",
+      "Read(//c/Users/Logan/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/b6af173a-d0cb-45d3-8a1f-e5820a3004cf/278de643-d66e-493b-a2c1-d129d9094daa/skills/docx/**)",
+      "Bash(npm install:*)",
+      "Bash(node generate_sprint4.js)",
+      "Bash(python scripts/office/unpack.py \"C:\\\\Users\\\\Logan\\\\Desktop\\\\Sprint 4 Updated.docx\" unpacked_desktop)",
+      "Bash(node generate_sprint4_v2.js)",
+      "Bash(copy \"C:\\\\Users\\\\Logan\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\b6af173a-d0cb-45d3-8a1f-e5820a3004cf\\\\278de643-d66e-493b-a2c1-d129d9094daa\\\\skills\\\\docx\\\\sprint4_v2_output.docx\" \"C:\\\\Users\\\\Logan\\\\Desktop\\\\Sprint 4 Updated.docx\")"
     ]
   }
 }

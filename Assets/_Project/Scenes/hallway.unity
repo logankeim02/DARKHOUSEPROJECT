@@ -242,10 +242,10 @@ PrefabInstance:
     - target: {fileID: 8563561441665862855, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: d26362f586515a1469612d278566d926, type: 3}
+      objectReference: {fileID: 102900000, guid: f52f1ff28b1ab81469cee12f5c2df24b, type: 3}
     - target: {fileID: 8563561441665862855, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: sceneToLoad
-      value: Room3
+      value: basement hallway
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

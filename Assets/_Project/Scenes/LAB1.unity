@@ -322,7 +322,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: be7e6b7298537df498af17aef0b48c57, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 90ad00fc64bd04640bbd2ccb6f8548b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -395,7 +395,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1503696220
+--- !u!1001 &1341289737
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -406,22 +406,26 @@ PrefabInstance:
     - target: {fileID: 781137932641867956, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: cam
       value: 
-      objectReference: {fileID: 961739752}
+      objectReference: {fileID: 0}
     - target: {fileID: 837186172115926014, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.56
+      value: -2.4949474
       objectReference: {fileID: 0}
     - target: {fileID: 837186172115926014, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.03
+      value: 0.04106915
       objectReference: {fileID: 0}
     - target: {fileID: 837186172115926014, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.096892655
       objectReference: {fileID: 0}
     - target: {fileID: 837186172115926014, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.059
+      objectReference: {fileID: 0}
+    - target: {fileID: 837186172115926014, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.69
+      value: -3.4
       objectReference: {fileID: 0}
     - target: {fileID: 837186172115926014, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -461,11 +465,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6482777205660943565, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 6.63
+      value: 9.46
       objectReference: {fileID: 0}
     - target: {fileID: 6482777205660943565, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.26
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6482777205660943565, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: m_LocalScale.z
@@ -473,11 +477,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6482777205660943565, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.28
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 6482777205660943565, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.7
+      value: -3.06
       objectReference: {fileID: 0}
     - target: {fileID: 6482777205660943565, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -518,10 +522,10 @@ PrefabInstance:
     - target: {fileID: 8563561441665862855, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: d26362f586515a1469612d278566d926, type: 3}
+      objectReference: {fileID: 102900000, guid: a95625d6399108549852dad263f423be, type: 3}
     - target: {fileID: 8563561441665862855, guid: 8df7c354142e929499db0f8bd16b77f2, type: 3}
       propertyPath: sceneToLoad
-      value: Room3
+      value: basement trapdoor ladder
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -641,5 +645,5 @@ SceneRoots:
   - {fileID: 1806791939}
   - {fileID: 1021126605}
   - {fileID: 1221960143}
-  - {fileID: 1503696220}
   - {fileID: 5914055474127433960}
+  - {fileID: 1341289737}

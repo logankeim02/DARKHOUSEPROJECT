@@ -65,6 +65,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/bathroom.unity
     guid: ab39242ccd542f84c8ade059ec03dd29
+  - enabled: 1
+    path: Assets/_Project/Scenes/basement hallway.unity
+    guid: f52f1ff28b1ab81469cee12f5c2df24b
+  - enabled: 1
+    path: Assets/_Project/Scenes/basement trapdoor closed.unity
+    guid: 0f038c51e6df86d4391377340522a93f
+  - enabled: 1
+    path: Assets/_Project/Scenes/basement trapdoor ladder.unity
+    guid: a95625d6399108549852dad263f423be
+  - enabled: 1
+    path: Assets/_Project/Scenes/trapdoor_open.unity
+    guid: 2d9b73ab205dc0e478506565c5dffab2
+  - enabled: 1
+    path: Assets/_Project/Scenes/LAB1.unity
+    guid: b1a3fe7901d0403478c0a18c838030f3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
