@@ -3,15 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-/// <summary>
-/// SQLite data layer using direct P/Invoke into sqlite3.dll.
-/// Does NOT use Mono.Data.Sqlite — avoids Unity 6 IL compatibility issues.
-/// Requires only sqlite3.dll in Assets/Plugins/.
-/// </summary>
 public class SaveDatabase
 {
-    // ── Native SQLite P/Invoke ───────────────────────────────────────────────
-
     private static class Native
     {
         private const string Lib = "sqlite3";
@@ -20,7 +13,6 @@ public class SaveDatabase
         public const int SQLITE_ROW  = 100;
         public const int SQLITE_DONE = 101;
 
-        // Tells SQLite to copy strings before returning — safe for managed strings
         public static readonly IntPtr SQLITE_TRANSIENT = new IntPtr(-1);
 
         [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
@@ -60,8 +52,6 @@ public class SaveDatabase
         public static extern void sqlite3_free(IntPtr ptr);
     }
 
-    // ── Fields ───────────────────────────────────────────────────────────────
-
     private readonly string dbPath;
 
     public SaveDatabase(string dbPath)
@@ -69,8 +59,6 @@ public class SaveDatabase
         this.dbPath = dbPath;
         InitializeTables();
     }
-
-    // ── Connection helpers ───────────────────────────────────────────────────
 
     private IntPtr OpenDb()
     {
@@ -120,8 +108,6 @@ public class SaveDatabase
         return ptr == IntPtr.Zero ? null : Marshal.PtrToStringAnsi(ptr);
     }
 
-    // ── Schema ───────────────────────────────────────────────────────────────
-
     private void InitializeTables()
     {
         IntPtr db = OpenDb();
@@ -153,8 +139,6 @@ public class SaveDatabase
         finally { CloseDb(db); }
     }
 
-    // ── Existence ────────────────────────────────────────────────────────────
-
     public bool SlotExists(int slotId)
     {
         IntPtr db = OpenDb();
@@ -170,8 +154,6 @@ public class SaveDatabase
         }
         finally { CloseDb(db); }
     }
-
-    // ── Save (Write) ─────────────────────────────────────────────────────────
 
     public void UpsertSlot(int slotId, string saveName, string currentScene)
     {
@@ -264,8 +246,6 @@ public class SaveDatabase
         finally { CloseDb(db); }
     }
 
-    // ── Load (Read) ──────────────────────────────────────────────────────────
-
     public string GetCurrentScene(int slotId)
     {
         IntPtr db = OpenDb();
@@ -345,8 +325,6 @@ public class SaveDatabase
         finally { CloseDb(db); }
         return result;
     }
-
-    // ── Delete ───────────────────────────────────────────────────────────────
 
     public void DeleteSlot(int slotId)
     {

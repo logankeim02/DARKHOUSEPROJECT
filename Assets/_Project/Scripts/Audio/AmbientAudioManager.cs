@@ -8,6 +8,8 @@ public class AmbientAudioManager : MonoBehaviour
     private AudioClip currentClip;
     private float baseVolume = 0.3f;
 
+    public AudioClip CurrentClip => currentClip;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -59,16 +61,7 @@ public class AmbientAudioManager : MonoBehaviour
 
     public void ApplyVolume()
     {
-        float ambientSetting = 1f;
-
-        if (AudioSettings.Instance != null)
-            ambientSetting = AudioSettings.Instance.AmbientVolume;
-
+        float ambientSetting = AudioSettings.Instance != null ? AudioSettings.Instance.AmbientVolume : 1f;
         audioSource.volume = baseVolume * ambientSetting;
-    }
-
-    public AudioClip GetCurrentClip()
-    {
-        return currentClip;
     }
 }

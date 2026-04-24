@@ -8,7 +8,6 @@ public class InventoryManager : MonoBehaviour
 
     public event Action<ItemData> OnItemAdded;
     public event Action<ItemData> OnItemRemoved;
-    /// <summary>Fired by LoadState() so the UI can refresh without showing individual pickup toasts.</summary>
     public event Action OnInventoryLoaded;
 
     private readonly List<string> itemIds = new();
@@ -37,11 +36,8 @@ public class InventoryManager : MonoBehaviour
 
     public void Add(ItemData item)
     {
-        if (item == null || string.IsNullOrWhiteSpace(item.itemId))
-            return;
-
-        if (itemIds.Contains(item.itemId))
-            return;
+        if (item == null || string.IsNullOrWhiteSpace(item.itemId)) return;
+        if (itemIds.Contains(item.itemId)) return;
 
         itemIds.Add(item.itemId);
         idToItem[item.itemId] = item;
@@ -50,11 +46,8 @@ public class InventoryManager : MonoBehaviour
 
     public bool Remove(string itemId)
     {
-        if (string.IsNullOrWhiteSpace(itemId))
-            return false;
-
-        if (!itemIds.Remove(itemId))
-            return false;
+        if (string.IsNullOrWhiteSpace(itemId)) return false;
+        if (!itemIds.Remove(itemId)) return false;
 
         if (idToItem.TryGetValue(itemId, out var item))
             OnItemRemoved?.Invoke(item);
@@ -65,34 +58,23 @@ public class InventoryManager : MonoBehaviour
     public bool TryResolve(string itemId, out ItemData item)
     {
         item = null;
-
-        if (string.IsNullOrWhiteSpace(itemId))
-            return false;
+        if (string.IsNullOrWhiteSpace(itemId)) return false;
 
         return idToItem.TryGetValue(itemId, out item);
     }
 
     public bool IsPickupCollected(string pickupId)
     {
-        if (string.IsNullOrWhiteSpace(pickupId))
-            return false;
-
+        if (string.IsNullOrWhiteSpace(pickupId)) return false;
         return collectedPickupIds.Contains(pickupId);
     }
 
     public void MarkPickupCollected(string pickupId)
     {
-        if (string.IsNullOrWhiteSpace(pickupId))
-            return;
-
-        collectedPickupIds.Add(pickupId);
+        if (!string.IsNullOrWhiteSpace(pickupId))
+            collectedPickupIds.Add(pickupId);
     }
 
-    /// <summary>
-    /// Bulk-loads inventory and pickup state from the save system.
-    /// Does NOT fire OnItemAdded (suppresses pickup toasts).
-    /// Fires OnInventoryLoaded so the UI can refresh once.
-    /// </summary>
     public void LoadState(IEnumerable<ItemData> items, IEnumerable<string> pickupIds)
     {
         itemIds.Clear();
@@ -113,7 +95,6 @@ public class InventoryManager : MonoBehaviour
         OnInventoryLoaded?.Invoke();
     }
 
-    /// <summary>Clears all inventory and pickup state (used by NewGame / DeleteSave).</summary>
     public void ClearAll()
     {
         var removed = new List<ItemData>();

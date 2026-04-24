@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class IntroSequenceController : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] private Image blackOverlay;   // full-screen black image
-    [SerializeField] private Text introText;       // or swap to TMP_Text if you use TMP
+    [SerializeField] private Image blackOverlay;
+    [SerializeField] private Text introText;
 
     [Header("Flow")]
     [SerializeField] private string nextSceneName = "Room01";
@@ -52,11 +52,9 @@ public class IntroSequenceController : MonoBehaviour
 
     private IEnumerator RunSequence()
     {
-        // Ensure black is fully on
         if (blackOverlay != null)
             yield return FadeImageAlpha(blackOverlay, 1f, 0.01f);
 
-        // Play each card
         foreach (var line in cards)
         {
             if (introText != null) introText.text = line;

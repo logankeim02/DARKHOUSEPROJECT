@@ -9,7 +9,7 @@ public class InventoryBarUI : MonoBehaviour
     [SerializeField] private Transform slotsParent;
     [SerializeField] private int slotCount = 6;
 
-    [Header("Item Catalog (ALL possible items)")]
+    [Header("Item Catalog")]
     [SerializeField] private List<ItemData> itemCatalog = new();
 
     private readonly List<InventorySlotUI> slots = new();
@@ -37,7 +37,7 @@ public class InventoryBarUI : MonoBehaviour
     {
         if (InventoryManager.Instance != null)
         {
-            InventoryManager.Instance.OnItemAdded     -= HandleItemAdded;
+            InventoryManager.Instance.OnItemAdded -= HandleItemAdded;
             InventoryManager.Instance.OnInventoryLoaded -= Refresh;
         }
     }
@@ -47,8 +47,8 @@ public class InventoryBarUI : MonoBehaviour
         while (InventoryManager.Instance == null)
             yield return null;
 
-        InventoryManager.Instance.OnItemAdded       -= HandleItemAdded;
-        InventoryManager.Instance.OnItemAdded       += HandleItemAdded;
+        InventoryManager.Instance.OnItemAdded -= HandleItemAdded;
+        InventoryManager.Instance.OnItemAdded += HandleItemAdded;
         InventoryManager.Instance.OnInventoryLoaded -= Refresh;
         InventoryManager.Instance.OnInventoryLoaded += Refresh;
 
@@ -56,10 +56,7 @@ public class InventoryBarUI : MonoBehaviour
         subscribeRoutine = null;
     }
 
-    private void HandleItemAdded(ItemData item)
-    {
-        Refresh();
-    }
+    private void HandleItemAdded(ItemData item) => Refresh();
 
     private void BuildCatalogLookup()
     {
@@ -67,8 +64,7 @@ public class InventoryBarUI : MonoBehaviour
 
         foreach (var item in itemCatalog)
         {
-            if (item == null) continue;
-            if (string.IsNullOrWhiteSpace(item.itemId)) continue;
+            if (item == null || string.IsNullOrWhiteSpace(item.itemId)) continue;
             idToItem[item.itemId] = item;
         }
     }
@@ -80,7 +76,7 @@ public class InventoryBarUI : MonoBehaviour
 
         if (slotPrefab == null || slotsParent == null)
         {
-            Debug.LogWarning("InventoryBarUI missing slotPrefab or slotsParent.");
+            Debug.LogWarning("InventoryBarUI: slotPrefab or slotsParent is not assigned.");
             return;
         }
 
@@ -114,15 +110,8 @@ public class InventoryBarUI : MonoBehaviour
 
         for (int i = 0; i < slots.Count && i < ids.Count; i++)
         {
-            var id = ids[i];
-
-            if (!idToItem.TryGetValue(id, out var item))
-            {
-                Debug.LogWarning($"InventoryBarUI: itemId '{id}' not found in itemCatalog.");
-                continue;
-            }
-
-            slots[i].SetItem(item);
+            if (idToItem.TryGetValue(ids[i], out var item))
+                slots[i].SetItem(item);
         }
     }
 

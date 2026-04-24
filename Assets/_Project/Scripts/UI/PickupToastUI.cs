@@ -51,9 +51,8 @@ public class PickupToastUI : MonoBehaviour
     private void OnDisable()
     {
         if (subscribed && InventoryManager.Instance != null)
-        {
             InventoryManager.Instance.OnItemAdded -= HandleItemAdded;
-        }
+
         subscribed = false;
     }
 
@@ -75,15 +74,9 @@ public class PickupToastUI : MonoBehaviour
 
     private IEnumerator ShowRoutine()
     {
-        // Fade in
         yield return Fade(0f, 1f, fadeInTime);
-
-        // Hold
         yield return new WaitForSecondsRealtime(holdTime);
-
-        // Fade out
         yield return Fade(1f, 0f, fadeOutTime);
-
         routine = null;
     }
 

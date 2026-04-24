@@ -6,7 +6,6 @@ public static class SfxOneShot
     {
         if (clip == null) return;
 
-        // Prefer UISfxPlayer's AudioSource if available (persistent, 2D)
         if (UISfxPlayer.Instance != null)
         {
             var src = UISfxPlayer.Instance.GetComponent<AudioSource>();
@@ -17,7 +16,6 @@ public static class SfxOneShot
             }
         }
 
-        // Fallback
         AudioSource.PlayClipAtPoint(clip, Vector3.zero, volume);
     }
 }

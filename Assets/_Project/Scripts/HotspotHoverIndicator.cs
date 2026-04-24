@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HotspotHoverIndicator : MonoBehaviour
 {
-    [SerializeField] private GameObject indicator; // assign HoverTriangle
+    [SerializeField] private GameObject indicator;
 
     private void Awake()
     {

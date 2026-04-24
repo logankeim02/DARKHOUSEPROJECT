@@ -16,7 +16,7 @@ public class DevPanelUI : MonoBehaviour
     [SerializeField] private List<ItemData> allItems = new();
 
     [Header("Teleport")]
-[SerializeField] private string room4SceneName = "Room4House1";
+    [SerializeField] private string room4SceneName = "Room4House1";
 
     [Header("Optional")]
     [SerializeField] private PickupToastUI toastUI;
@@ -58,13 +58,11 @@ public class DevPanelUI : MonoBehaviour
 
     public void AddAllItems()
     {
-        if (InventoryManager.Instance == null)
-            return;
+        if (InventoryManager.Instance == null) return;
 
         foreach (var item in allItems)
         {
-            if (item == null || string.IsNullOrWhiteSpace(item.itemId))
-                continue;
+            if (item == null || string.IsNullOrWhiteSpace(item.itemId)) continue;
 
             if (!InventoryManager.Instance.Has(item.itemId))
                 InventoryManager.Instance.Add(item);
@@ -75,34 +73,36 @@ public class DevPanelUI : MonoBehaviour
 
     public void RemoveAllItems()
     {
-        if (InventoryManager.Instance == null)
-            return;
+        if (InventoryManager.Instance == null) return;
 
-        List<string> idsToRemove = new List<string>(InventoryManager.Instance.ItemIds);
+        var idsToRemove = new List<string>(InventoryManager.Instance.ItemIds);
 
         foreach (string id in idsToRemove)
             InventoryManager.Instance.Remove(id);
 
-        if (InventoryInteractionManager.Instance != null)
-            InventoryInteractionManager.Instance.ClearSelectedItem();
+        InventoryInteractionManager.Instance?.ClearSelectedItem();
 
         ShowToast("Dev: Removed all items");
     }
 
     public void ResetPlayerPrefsData()
     {
-        // Delete the SQLite save and clear in-memory game state
-        if (SaveManager.Instance != null)
-            SaveManager.Instance.DeleteSave();
+        SaveManager.Instance?.DeleteSave();
 
-        // Also wipe PlayerPrefs (audio settings etc.)
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
 
-        if (InventoryInteractionManager.Instance != null)
-            InventoryInteractionManager.Instance.ClearSelectedItem();
+        InventoryInteractionManager.Instance?.ClearSelectedItem();
 
         ShowToast("Dev: Reset all save data");
+    }
+
+    public void TeleportToRoom4House1()
+    {
+        InventoryInteractionManager.Instance?.ClearSelectedItem();
+
+        if (!string.IsNullOrEmpty(room4SceneName))
+            SceneManager.LoadScene(room4SceneName);
     }
 
     private void ShowToast(string message)
@@ -110,19 +110,6 @@ public class DevPanelUI : MonoBehaviour
         if (toastUI == null)
             toastUI = FindFirstObjectByType<PickupToastUI>(FindObjectsInactive.Include);
 
-        if (toastUI != null)
-            toastUI.Show(message);
-        else
-            Debug.Log(message);
+        toastUI?.Show(message);
     }
-
-    public void TeleportToRoom4House1()
-{
-    InventoryInteractionManager.Instance?.ClearSelectedItem();
-
-    if (!string.IsNullOrEmpty(room4SceneName))
-    {
-        SceneManager.LoadScene(room4SceneName);
-    }
-}
 }

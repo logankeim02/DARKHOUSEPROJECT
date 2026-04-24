@@ -8,15 +8,12 @@ public class ItemData : ScriptableObject
     public string displayName;
 
     [Header("Inventory")]
-    public Sprite icon; // keep this name to match existing UI code
+    public Sprite icon;
 
     [Header("Inspect")]
     public Sprite inspectSprite;
 
     [Header("Inspect SFX")]
-    [Tooltip("Played when the inspect overlay opens for this item.")]
     public AudioClip inspectOpenSfx;
-
-    [Tooltip("Played when the inspect overlay closes for this item.")]
     public AudioClip inspectCloseSfx;
 }

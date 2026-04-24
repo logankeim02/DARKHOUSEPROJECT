@@ -8,9 +8,7 @@ public class UISfxPlayer : MonoBehaviour
     [SerializeField] private AudioClip hoverClip;
     [SerializeField] private AudioClip clickClip;
     [SerializeField] private AudioClip startGameClip;
-
     [SerializeField] private AudioClip inventoryToggleClip;
-
 
     private AudioSource src;
 
@@ -25,15 +23,14 @@ public class UISfxPlayer : MonoBehaviour
         Instance = this;
 
         src = GetComponent<AudioSource>();
-        src.spatialBlend = 0f; // Force 2D
+        src.spatialBlend = 0f;
     }
 
     public static void PlayInventoryToggle()
-{
-    if (Instance == null || Instance.inventoryToggleClip == null) return;
-    Instance.src.PlayOneShot(Instance.inventoryToggleClip, 0.9f);
-}
-
+    {
+        if (Instance == null || Instance.inventoryToggleClip == null) return;
+        Instance.src.PlayOneShot(Instance.inventoryToggleClip, 0.9f);
+    }
 
     public static void PlayHover()
     {
@@ -55,16 +52,15 @@ public class UISfxPlayer : MonoBehaviour
 
     public static bool PlayStartOnNextScene { get; private set; }
 
-public static void QueueStartGameSfx()
-{
-    PlayStartOnNextScene = true;
-}
+    public static void QueueStartGameSfx()
+    {
+        PlayStartOnNextScene = true;
+    }
 
-public static void ConsumeQueuedStartGameSfx()
-{
-    if (!PlayStartOnNextScene) return;
-    PlayStartOnNextScene = false;
-    PlayStartGame();
-}
-
+    public static void ConsumeQueuedStartGameSfx()
+    {
+        if (!PlayStartOnNextScene) return;
+        PlayStartOnNextScene = false;
+        PlayStartGame();
+    }
 }

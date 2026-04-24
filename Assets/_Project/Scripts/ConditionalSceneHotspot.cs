@@ -11,19 +11,19 @@ public class ConditionalSceneHotspot : MonoBehaviour, IClickable
     {
         int flagValue = SaveManager.Instance != null
             ? SaveManager.Instance.GetFlag(unlockKey)
-            : PlayerPrefs.GetInt(unlockKey, 0); // fallback if SaveManager missing
+            : PlayerPrefs.GetInt(unlockKey, 0);
 
         string targetScene = flagValue == 1 ? unlockedScene : lockedScene;
 
         if (string.IsNullOrWhiteSpace(targetScene))
         {
-            Debug.LogError("ConditionalSceneHotspot target scene missing.", this);
+            Debug.LogError("ConditionalSceneHotspot: target scene is not assigned.", this);
             return;
         }
 
         if (!Application.CanStreamedLevelBeLoaded(targetScene))
         {
-            Debug.LogError($"Scene '{targetScene}' is not in Build Settings.", this);
+            Debug.LogError($"ConditionalSceneHotspot: scene '{targetScene}' is not in Build Settings.", this);
             return;
         }
 

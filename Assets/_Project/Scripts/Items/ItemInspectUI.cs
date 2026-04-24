@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class ItemInspectUI : MonoBehaviour
 {
     [Header("Wiring")]
-    [SerializeField] private CanvasGroup group;          // on ItemInspectOverlay (or child)
-    [SerializeField] private Image dimmer;               // full-screen dark image
-    [SerializeField] private Image inspectImage;         // centered image
-    [SerializeField] private Button closeButton;         // X button
-    [SerializeField] private GameObject inventoryPanel;  // your InventoryBar panel
+    [SerializeField] private CanvasGroup group;
+    [SerializeField] private Image dimmer;
+    [SerializeField] private Image inspectImage;
+    [SerializeField] private Button closeButton;
+    [SerializeField] private GameObject inventoryPanel;
 
     [Header("Fade")]
     [SerializeField] private float fadeTime = 0.15f;
@@ -20,7 +20,6 @@ public class ItemInspectUI : MonoBehaviour
 
     private Coroutine fadeRoutine;
     private bool reopenInventoryOnClose;
-
     private ItemData currentItem;
 
     private void Awake()
@@ -51,16 +50,13 @@ public class ItemInspectUI : MonoBehaviour
 
         currentItem = item;
 
-        // close inventory bar while inspecting
         reopenInventoryOnClose = (inventoryPanel != null && inventoryPanel.activeSelf);
         if (inventoryPanel != null) inventoryPanel.SetActive(false);
 
         if (inspectImage != null)
             inspectImage.sprite = item.inspectSprite != null ? item.inspectSprite : item.icon;
 
-        // Play open-inspect sound (if assigned)
-        if (item.inspectOpenSfx != null)
-            Play2D(item.inspectOpenSfx, inspectSfxVolume);
+        SfxOneShot.Play2D(item.inspectOpenSfx, inspectSfxVolume);
 
         gameObject.SetActive(true);
 
@@ -98,9 +94,8 @@ public class ItemInspectUI : MonoBehaviour
     {
         if (group == null) yield break;
 
-        // Play close-inspect sound (if assigned)
-        if (currentItem != null && currentItem.inspectCloseSfx != null)
-            Play2D(currentItem.inspectCloseSfx, inspectSfxVolume);
+        if (currentItem != null)
+            SfxOneShot.Play2D(currentItem.inspectCloseSfx, inspectSfxVolume);
 
         float start = group.alpha;
         float t = 0f;
@@ -120,27 +115,7 @@ public class ItemInspectUI : MonoBehaviour
 
         currentItem = null;
 
-        // reopen inventory if it was open when we started inspecting
         if (reopenInventoryOnClose && inventoryPanel != null)
             inventoryPanel.SetActive(true);
-    }
-
-    // Uses your persistent UISfxPlayer AudioSource if available (best),
-    // otherwise falls back to AudioSource.PlayClipAtPoint.
-    private void Play2D(AudioClip clip, float volume)
-    {
-        if (clip == null) return;
-
-        if (UISfxPlayer.Instance != null)
-        {
-            var src = UISfxPlayer.Instance.GetComponent<AudioSource>();
-            if (src != null)
-            {
-                src.PlayOneShot(clip, volume);
-                return;
-            }
-        }
-
-        AudioSource.PlayClipAtPoint(clip, Vector3.zero, volume);
     }
 }

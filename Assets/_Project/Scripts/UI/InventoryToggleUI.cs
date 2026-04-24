@@ -7,19 +7,8 @@ public class InventoryToggleUI : MonoBehaviour
 {
     public bool IsOpen => inventoryPanel != null && inventoryPanel.activeSelf;
 
-    public void Open()
-{
-    if (inventoryPanel != null) inventoryPanel.SetActive(true);
-}
-
-public void Close()
-{
-    if (inventoryPanel != null) inventoryPanel.SetActive(false);
-}
-
-
     [Header("Wiring")]
-    [SerializeField] private GameObject inventoryPanel;   // the whole inventory UI (hidden/shown)
+    [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private Button toggleButton;
     [SerializeField] private TMP_Text buttonText;
 
@@ -31,6 +20,16 @@ public void Close()
     private Coroutine flashRoutine;
     private Coroutine subscribeRoutine;
     private bool subscribed;
+
+    public void Open()
+    {
+        if (inventoryPanel != null) inventoryPanel.SetActive(true);
+    }
+
+    public void Close()
+    {
+        if (inventoryPanel != null) inventoryPanel.SetActive(false);
+    }
 
     private void Awake()
     {
@@ -46,7 +45,6 @@ public void Close()
 
     private void OnEnable()
     {
-        // In case Unity lifecycle order changes, wait until InventoryManager.Instance exists
         if (subscribeRoutine != null) StopCoroutine(subscribeRoutine);
         subscribeRoutine = StartCoroutine(SubscribeWhenReady());
     }
@@ -64,7 +62,6 @@ public void Close()
 
     private IEnumerator SubscribeWhenReady()
     {
-        // Wait until InventoryManager singleton is initialized
         while (InventoryManager.Instance == null)
             yield return null;
 
@@ -80,25 +77,21 @@ public void Close()
     private void Unsubscribe()
     {
         if (subscribed && InventoryManager.Instance != null)
-        {
             InventoryManager.Instance.OnItemAdded -= HandleItemAdded;
-        }
+
         subscribed = false;
     }
 
     private void ToggleInventory()
     {
         UISfxPlayer.PlayInventoryToggle();
-        
+
         if (inventoryPanel == null) return;
         inventoryPanel.SetActive(!inventoryPanel.activeSelf);
     }
 
     private void HandleItemAdded(ItemData item)
     {
-        // If you only want this to flash when inventory is closed, uncomment:
-        // if (inventoryPanel != null && inventoryPanel.activeSelf) return;
-
         FlashButton();
     }
 

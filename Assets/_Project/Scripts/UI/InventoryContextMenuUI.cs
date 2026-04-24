@@ -33,21 +33,14 @@ public class InventoryContextMenuUI : MonoBehaviour
         if (inspectButton != null)
             inspectButton.onClick.AddListener(OnInspectClicked);
 
-        HideImmediate();
+        Hide();
     }
 
     private void Update()
     {
-        if (!isOpen)
-            return;
+        if (!isOpen) return;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (!RectTransformUtility.RectangleContainsScreenPoint(panel, Input.mousePosition, null))
-                Hide();
-        }
-
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             if (!RectTransformUtility.RectangleContainsScreenPoint(panel, Input.mousePosition, null))
                 Hide();
@@ -56,30 +49,22 @@ public class InventoryContextMenuUI : MonoBehaviour
 
     public void Show(ItemData item, Vector2 screenPosition)
     {
-        if (item == null || panel == null)
-            return;
+        if (item == null || panel == null) return;
 
         currentItem = item;
         isOpen = true;
 
-        if (useLabel != null)
-            useLabel.text = "Use";
-
-        if (inspectLabel != null)
-            inspectLabel.text = "Inspect";
+        if (useLabel != null) useLabel.text = "Use";
+        if (inspectLabel != null) inspectLabel.text = "Inspect";
 
         panel.gameObject.SetActive(true);
 
         Vector2 pos = screenPosition;
-
         float width = panel.rect.width;
         float height = panel.rect.height;
 
-        if (pos.x + width > Screen.width)
-            pos.x -= width;
-
-        if (pos.y + height > Screen.height)
-            pos.y -= height;
+        if (pos.x + width > Screen.width) pos.x -= width;
+        if (pos.y + height > Screen.height) pos.y -= height;
 
         panel.position = pos;
 
@@ -107,26 +92,9 @@ public class InventoryContextMenuUI : MonoBehaviour
         }
     }
 
-    private void HideImmediate()
-    {
-        currentItem = null;
-        isOpen = false;
-
-        if (panel != null)
-            panel.gameObject.SetActive(false);
-
-        if (canvasGroup != null)
-        {
-            canvasGroup.alpha = 0f;
-            canvasGroup.blocksRaycasts = false;
-            canvasGroup.interactable = false;
-        }
-    }
-
     private void OnUseClicked()
     {
-        if (currentItem == null)
-            return;
+        if (currentItem == null) return;
 
         if (InventoryInteractionManager.Instance != null)
             InventoryInteractionManager.Instance.SelectUseItem(currentItem);
@@ -136,8 +104,7 @@ public class InventoryContextMenuUI : MonoBehaviour
 
     private void OnInspectClicked()
     {
-        if (currentItem == null)
-            return;
+        if (currentItem == null) return;
 
         var inspectUI = FindFirstObjectByType<ItemInspectUI>(FindObjectsInactive.Include);
         if (inspectUI != null)

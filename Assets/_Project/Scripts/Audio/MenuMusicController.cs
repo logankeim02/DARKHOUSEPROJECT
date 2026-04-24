@@ -10,7 +10,7 @@ public class MenuMusicController : MonoBehaviour
 
     private AudioSource src;
 
-    void Awake()
+    private void Awake()
     {
         src = GetComponent<AudioSource>();
         src.playOnAwake = false;
@@ -19,14 +19,13 @@ public class MenuMusicController : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    void Start()
+    private void Start()
     {
-        // handle case where MainMenu is already loaded/active
         Handle(SceneManager.GetActiveScene().name);
     }
 

@@ -12,7 +12,7 @@ public class ItemDatabase : ScriptableObject
     public IReadOnlyList<ItemData> Items => items;
 
     private void OnEnable() => BuildLookup();
-    private void OnValidate() => BuildLookup(); // keeps it updated in editor
+    private void OnValidate() => BuildLookup();
 
     private void BuildLookup()
     {

@@ -2,15 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Persistent rain effect — lives on the Bootstrap prefab.
-/// Activates automatically when entering any scene listed in Rain Scenes.
-///
-/// HOW TO USE:
-///   1. Add this component to BootstrapSystems (or any DontDestroyOnLoad object).
-///   2. In the Inspector, add scene names to the Rain Scenes list.
-///   3. Optionally assign a rain audio clip and tweak the settings.
-/// </summary>
 [DisallowMultipleComponent]
 public class RainEffect : MonoBehaviour
 {
@@ -46,8 +37,6 @@ public class RainEffect : MonoBehaviour
 
     private readonly HashSet<string> rainSceneSet = new();
 
-    // ── Lifecycle ─────────────────────────────────────────────────────────────
-
     private void Awake()
     {
         foreach (string s in rainScenes)
@@ -60,8 +49,6 @@ public class RainEffect : MonoBehaviour
         BuildAudio();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
-
-        // Apply state for whichever scene is already active
         ApplyRainState(SceneManager.GetActiveScene().name);
     }
 
@@ -74,8 +61,6 @@ public class RainEffect : MonoBehaviour
     {
         ApplyRainState(scene.name);
     }
-
-    // ── State toggle ──────────────────────────────────────────────────────────
 
     private void ApplyRainState(string sceneName)
     {
@@ -107,8 +92,6 @@ public class RainEffect : MonoBehaviour
         }
     }
 
-    // ── Particle system builders ──────────────────────────────────────────────
-
     private void BuildRain()
     {
         var go = new GameObject("Rain_Drops");
@@ -116,8 +99,8 @@ public class RainEffect : MonoBehaviour
         go.transform.localPosition = Vector3.zero;
         go.transform.localRotation = Quaternion.Euler(180f, 0f, 0f);
 
-        rainPS      = go.AddComponent<ParticleSystem>();
-        var rnd     = go.GetComponent<ParticleSystemRenderer>();
+        rainPS  = go.AddComponent<ParticleSystem>();
+        var rnd = go.GetComponent<ParticleSystemRenderer>();
 
         var main = rainPS.main;
         main.loop            = true;
@@ -163,8 +146,8 @@ public class RainEffect : MonoBehaviour
         go.transform.SetParent(transform, false);
         go.transform.localPosition = new Vector3(0f, groundOffsetY, 0f);
 
-        splashPS    = go.AddComponent<ParticleSystem>();
-        var rnd     = go.GetComponent<ParticleSystemRenderer>();
+        splashPS = go.AddComponent<ParticleSystem>();
+        var rnd  = go.GetComponent<ParticleSystemRenderer>();
 
         var main = splashPS.main;
         main.loop            = true;
@@ -215,8 +198,8 @@ public class RainEffect : MonoBehaviour
         go.transform.SetParent(transform, false);
         go.transform.localPosition = new Vector3(0f, mistOffsetY, 0f);
 
-        mistPS      = go.AddComponent<ParticleSystem>();
-        var rnd     = go.GetComponent<ParticleSystemRenderer>();
+        mistPS  = go.AddComponent<ParticleSystem>();
+        var rnd = go.GetComponent<ParticleSystemRenderer>();
 
         var main = mistPS.main;
         main.loop            = true;
@@ -275,15 +258,13 @@ public class RainEffect : MonoBehaviour
 
         var go   = new GameObject("Rain_Audio");
         go.transform.SetParent(transform, false);
-        rainAudio             = go.AddComponent<AudioSource>();
-        rainAudio.clip        = rainSound;
-        rainAudio.loop        = true;
+        rainAudio              = go.AddComponent<AudioSource>();
+        rainAudio.clip         = rainSound;
+        rainAudio.loop         = true;
         rainAudio.spatialBlend = 0f;
-        rainAudio.volume      = rainVolume;
-        rainAudio.playOnAwake = false;
+        rainAudio.volume       = rainVolume;
+        rainAudio.playOnAwake  = false;
     }
-
-    // ── Helpers ───────────────────────────────────────────────────────────────
 
     private static Gradient MakeRainGradient()
     {

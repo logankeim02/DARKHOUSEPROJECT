@@ -10,7 +10,7 @@ public class AudioSettings : MonoBehaviour
     public float MasterVolume { get; private set; } = 1f;
     public float AmbientVolume { get; private set; } = 1f;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -48,9 +48,9 @@ public class AudioSettings : MonoBehaviour
         AudioListener.volume = MasterVolume;
     }
 
-private void ApplyAmbientToScene()
-{
-    if (AmbientAudioManager.Instance != null)
-        AmbientAudioManager.Instance.ApplyVolume();
-}
+    private void ApplyAmbientToScene()
+    {
+        if (AmbientAudioManager.Instance != null)
+            AmbientAudioManager.Instance.ApplyVolume();
+    }
 }

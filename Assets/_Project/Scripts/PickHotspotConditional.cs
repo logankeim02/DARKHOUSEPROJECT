@@ -10,21 +10,20 @@ public class PickupHotspotConditional : MonoBehaviour, IClickable
     [Header("Condition (Required Item)")]
     [SerializeField] private ItemData requiredItem;
 
-    [Tooltip("Inventory key/id used for the requirement check. If requiredItem is set, this will auto-fill.")]
+    [Tooltip("Item ID required to pick this up. Auto-filled when requiredItem is set.")]
     [SerializeField] private string requiredItemId;
 
     [TextArea(2, 6)]
     [SerializeField] private string lockedMessage = "You are unable to pick this item up.";
 
     [Header("Blocked Toast")]
-    [Tooltip("Drag your persistent PickupToastUI here (from Bootstrap UI). If left empty, we will try FindFirstObjectByType at runtime.")]
+    [Tooltip("Drag your persistent PickupToastUI here. If left empty, FindFirstObjectByType is used at runtime.")]
     [SerializeField] private PickupToastUI toastUI;
 
-    [Tooltip("If true, prefixes the message (does NOT use PickupToastUI's internal prefix field).")]
     [SerializeField] private bool usePickupPrefixStyle = false;
 
     [Header("Persistence")]
-    [Tooltip("Must be UNIQUE across the whole game. Example: room01_intro_note")]
+    [Tooltip("Must be unique across the whole game. Example: room01_intro_note")]
     [SerializeField] private string pickupId;
 
     private void Start()
@@ -51,11 +50,10 @@ public class PickupHotspotConditional : MonoBehaviour, IClickable
 
         if (InventoryManager.Instance == null)
         {
-            Debug.LogError("InventoryManager.Instance is null (is your Bootstrap/persistent system loaded?)", this);
+            Debug.LogError("InventoryManager.Instance is null.", this);
             return;
         }
 
-        // Requirement check (only enforced if we have an id)
         if (!string.IsNullOrWhiteSpace(requiredItemId) &&
             !InventoryManager.Instance.Has(requiredItemId))
         {
@@ -64,9 +62,8 @@ public class PickupHotspotConditional : MonoBehaviour, IClickable
         }
 
         string id = GetResolvedPickupId();
-
         InventoryManager.Instance.MarkPickupCollected(id);
-        InventoryManager.Instance.Add(item); // PickupToastUI listens to OnItemAdded and shows the pickup toast
+        InventoryManager.Instance.Add(item);
         Destroy(gameObject);
     }
 
@@ -75,13 +72,7 @@ public class PickupHotspotConditional : MonoBehaviour, IClickable
         string msg = string.IsNullOrWhiteSpace(lockedMessage) ? "You are unable to pick this item up." : lockedMessage;
 
         if (toastUI != null)
-        {
             toastUI.Show(usePickupPrefixStyle ? ("Locked: " + msg) : msg);
-        }
-        else
-        {
-            Debug.Log(msg, this);
-        }
     }
 
     private string GetResolvedPickupId()
@@ -95,7 +86,6 @@ public class PickupHotspotConditional : MonoBehaviour, IClickable
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        // IMPORTANT: use ItemData.itemId (your InventoryManager.Has wants a string id)
         if (requiredItem != null)
             requiredItemId = requiredItem.itemId;
     }

@@ -23,13 +23,13 @@ public class SceneHotspot : MonoBehaviour, IClickable
     {
         if (string.IsNullOrEmpty(sceneToLoad))
         {
-            Debug.LogError("SceneHotspot has no sceneToLoad assigned!", this);
+            Debug.LogError("SceneHotspot: no scene assigned.", this);
             return;
         }
 
         if (!Application.CanStreamedLevelBeLoaded(sceneToLoad))
         {
-            Debug.LogError($"Scene '{sceneToLoad}' is NOT in Build Settings!", this);
+            Debug.LogError($"SceneHotspot: scene '{sceneToLoad}' is not in Build Settings.", this);
             return;
         }
 

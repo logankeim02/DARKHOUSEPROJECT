@@ -3,23 +3,13 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-/// <summary>
-/// Tools → Dark House → Create New Room Scenes
-///
-/// Duplicates Room01 for each new room, swaps the background sprite,
-/// and saves the scene. Run this once after importing the 5 new background images.
-///
-/// Required image names in Assets/_Project/Art/Backgrounds/:
-///   bathroom.png, bedroom.png, kitchen.png, hallway.png, livingroom.png
-/// </summary>
 public static class RoomSceneCreator
 {
-    private const string TemplateScene    = "Assets/_Project/Scenes/Room01.unity";
-    private const string ScenesFolder    = "Assets/_Project/Scenes";
+    private const string TemplateScene     = "Assets/_Project/Scenes/Room01.unity";
+    private const string ScenesFolder      = "Assets/_Project/Scenes";
     private const string BackgroundsFolder = "Assets/_Project/Art/Backgrounds";
     private const string BackgroundObjName = "Background1";
 
-    // (new scene name, background image filename)
     private static readonly (string sceneName, string imageFile)[] Rooms =
     {
         ("RoomBathroom",   "bathroom.png"),
@@ -32,7 +22,6 @@ public static class RoomSceneCreator
     [MenuItem("Tools/Dark House/Create New Room Scenes")]
     public static void CreateRooms()
     {
-        // Save the currently open scene so we can return to it
         string originalScene = EditorSceneManager.GetActiveScene().path;
 
         if (!File.Exists(TemplateScene))
@@ -49,20 +38,16 @@ public static class RoomSceneCreator
             string destPath  = $"{ScenesFolder}/{sceneName}.unity";
             string imagePath = $"{BackgroundsFolder}/{imageFile}";
 
-            // ── Check the background sprite exists ───────────────────────────
             var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(imagePath);
             if (sprite == null)
             {
-                Debug.LogWarning($"[RoomSceneCreator] Skipping '{sceneName}' — sprite not found at '{imagePath}'. " +
-                                 $"Make sure the image is imported and set to Sprite (2D and UI) texture type.");
+                Debug.LogWarning($"[RoomSceneCreator] Skipping '{sceneName}' — sprite not found at '{imagePath}'.");
                 skipped++;
                 continue;
             }
 
-            // ── Duplicate template ───────────────────────────────────────────
             if (File.Exists(destPath))
             {
-                Debug.Log($"[RoomSceneCreator] '{sceneName}' already exists — skipping.");
                 skipped++;
                 continue;
             }
@@ -76,14 +61,12 @@ public static class RoomSceneCreator
 
             AssetDatabase.Refresh();
 
-            // ── Open duplicated scene and swap background ────────────────────
             var scene = EditorSceneManager.OpenScene(destPath, OpenSceneMode.Single);
 
             var bgObj = FindInScene(BackgroundObjName);
             if (bgObj == null)
             {
-                Debug.LogWarning($"[RoomSceneCreator] '{sceneName}': Could not find '{BackgroundObjName}' GameObject. " +
-                                 $"Scene created but background not swapped — set it manually.");
+                Debug.LogWarning($"[RoomSceneCreator] '{sceneName}': Could not find '{BackgroundObjName}'. Set background manually.");
             }
             else
             {
@@ -92,7 +75,6 @@ public static class RoomSceneCreator
                 {
                     sr.sprite = sprite;
                     EditorUtility.SetDirty(bgObj);
-                    Debug.Log($"[RoomSceneCreator] '{sceneName}': Background set to '{imageFile}'.");
                 }
                 else
                 {
@@ -104,18 +86,11 @@ public static class RoomSceneCreator
             created++;
         }
 
-        // ── Restore original scene ───────────────────────────────────────────
         if (!string.IsNullOrEmpty(originalScene) && File.Exists(originalScene))
             EditorSceneManager.OpenScene(originalScene, OpenSceneMode.Single);
 
         AssetDatabase.Refresh();
 
-        Debug.Log($"[RoomSceneCreator] Done — {created} scene(s) created, {skipped} skipped.");
-
-        if (skipped > 0)
-            Debug.LogWarning("[RoomSceneCreator] Some scenes were skipped. Check the warnings above.");
-
-        // ── Remind user to add scenes to Build Settings ──────────────────────
         if (created > 0)
         {
             EditorUtility.DisplayDialog(
@@ -127,8 +102,6 @@ public static class RoomSceneCreator
                 "OK");
         }
     }
-
-    // ── Helpers ───────────────────────────────────────────────────────────────
 
     private static GameObject FindInScene(string name)
     {

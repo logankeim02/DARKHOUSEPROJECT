@@ -6,8 +6,6 @@ public class RoomClickInput : MonoBehaviour
     [SerializeField] private LayerMask hotspotMask;
 
     private HotspotHoverIndicator currentHover;
-
-    // Prevents multiple RoomClickInput instances from firing the same click
     private static int lastClickFrame = -1;
 
     private void Awake()
@@ -70,14 +68,12 @@ public class RoomClickInput : MonoBehaviour
         if (cam == null) return;
 
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-
         HotspotHoverIndicator newHover = null;
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, hotspotMask))
             newHover = hit.collider.GetComponentInParent<HotspotHoverIndicator>();
 
-        if (newHover == currentHover)
-            return;
+        if (newHover == currentHover) return;
 
         if (currentHover != null)
             currentHover.SetHovered(false);
