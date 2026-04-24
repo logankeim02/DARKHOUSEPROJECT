@@ -2922,6 +2922,67 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1444024268
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 839787370}
+    m_Modifications:
+    - target: {fileID: 191326, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_Name
+      value: RainPrefab2D
+      objectReference: {fileID: 0}
+    - target: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 26.295626
+      objectReference: {fileID: 0}
+    - target: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.797956
+      objectReference: {fileID: 0}
+    - target: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.360863
+      objectReference: {fileID: 0}
+    - target: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475408, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: RainIntensity
+      value: 0.486
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b046278bb9b6e104790392b566667ba5, type: 3}
 --- !u!1 &1571947057
 GameObject:
   m_ObjectHideFlags: 0
@@ -3904,6 +3965,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6846249058535478413, guid: 793030789b343754ca5509d17dd3d8a9, type: 3}
   m_PrefabInstance: {fileID: 1598265119}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2039944286 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11475408, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+  m_PrefabInstance: {fileID: 1444024268}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340901a9d8d97bd43abdfe247e210193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2039944287 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 465656, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+  m_PrefabInstance: {fileID: 1444024268}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2054997594
 GameObject:
   m_ObjectHideFlags: 0
@@ -4182,30 +4259,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
   itemDatabase: {fileID: 11400000, guid: 25d0862a022c12946beaf83894699f8e, type: 2}
---- !u!114 &2112610147
+--- !u!114 &2112610154
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112610130}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cedfb6ba9f4a034b815797315fff9c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RainEffect
-  rainScenes: []
-  emissionRate: 450
-  areaWidth: 100
-  areaDepth: 100
-  windX: -1.2
-  enableSplash: 1
-  groundOffsetY: -4.16
-  enableMist: 0
-  mistOffsetY: -5
-  rainSound: {fileID: 0}
-  rainVolume: 0.35
-  customParticleMaterial: {fileID: 0}
+  rainScript: {fileID: 2039944286}
+  rainIntensity: 0.211
+  audioVolume: 0.013
+  rainColor: {r: 0.10354183, g: 0.15012947, b: 0.21253121, a: 0.7137255}
+  rainScenes:
+  - Room01
+  - Room1.1
+  - Room2
+  - RoomDeadGuy
+  - House1_DoorClosed
+  - House1_DoorOpen
+  - Room3
+  - Room4House1
+  - Room4House2
+  - Room4House3
+  audioOnlyScenes:
+  - RoomDeadGuy
 --- !u!1001 &8185529652041741742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4283,6 +4365,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5593801021154677499, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1598265120}
+    - targetCorrespondingSourceObject: {fileID: 5593801021154677499, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2039944287}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 40202697679309540, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
       insertIndex: -1
@@ -4298,7 +4383,7 @@ PrefabInstance:
       addedObject: {fileID: 2112610145}
     - targetCorrespondingSourceObject: {fileID: 40202697679309540, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2112610147}
+      addedObject: {fileID: 2112610154}
   m_SourcePrefab: {fileID: 100100000, guid: bfe33c5d515a3ac45b3c7890f69d9ce8, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
